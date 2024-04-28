@@ -5,7 +5,7 @@ Test of je de correcte endpoint hebt in Postman. Pas nadien "fetch" je de correc
 */
 
 fetch('')
-  // maak van het antwoord een JSON antwoord
+// maak van het antwoord een JSON antwoord
   .then(response => response.json())
   // lees de json uit en zet om naar HTML
   .then(json => {
