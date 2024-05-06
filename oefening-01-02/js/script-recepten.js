@@ -1,24 +1,25 @@
-/* 
-Surf naar de "coffee API" op https://sampleapis.com/api-list/coffee
-Zoek naar de correct url met endpopint waarbij je 20 resultaten van hot-coffee-recepten in een json-file te zien krijgt.
-Test of je de correcte endpoint hebt in Postman. Pas nadien "fetch" je de correcte link naar de API in de code hieronder.
-*/
-
 fetch('https://api.sampleapis.com/coffee/hot/?results=20')
-.then(function (response){
-  if (response.ok) {
-    return response.json();
-  } else {
-    return Promise.reject(response.status);
-  }
-})
-.then(function (response) {
-  console.log(response);
-  let html = '<div class="accordion accordion-flush" id="accordionExample>'
-  console.log(response.lentgth); 
-  for (let i = 0; i < response.length - 2; i++) {
-    const recipe = response[i];
-    html += `<div class="accordion-item">
+    .then(function (response) {
+        // nakijken of de API-call een antwoord terugstuurt
+        if (response.ok) {
+            // als de status "ok" (=200) is, dan wordt het antwoord omgezet in JSON
+            return response.json();
+        } else {
+            // als de status niet "ok" is, geef dan de status terug en annuleer het uitvoeren
+            return Promise.reject(response.status);
+        }
+    })
+
+    .then(function (response) {
+        // lees het volledige antwoord uit in de console
+        console.log(response);
+        // plaats een section met grid
+        let html = '<div class="accordion accordion-flush" id="accordionExample">';
+        // plaats van de recepten met afbeelding, titel, ingrediënten en beschrijving in HTML
+        console.log(response.length);
+        for (let i = 0; i < response.length - 2; i++) {
+            const recipe = response[i];
+            html += `<div class="accordion-item">
 
             <h2 class="accordion-header">
                 <button class="accordion-button collapsed text-uppercase fs-6 fw-bolder pt-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${i}" aria-expanded="false" aria-controls="collapse${i}">
@@ -34,9 +35,9 @@ fetch('https://api.sampleapis.com/coffee/hot/?results=20')
         }
         html += '</div>';
         document.getElementById("recepten").innerHTML = html;
-})
+    })
 
-.catch(function (error) {
-  // indien er een fout is, toon in de console dan wat er misloopt
-  console.error("Error with message: " + error)
-});
+    .catch(function (error) {
+        // indien er een fout is, toon in de console dan wat er misloopt
+        console.error("Error with message: " + error)
+    });
